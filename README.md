@@ -35,6 +35,8 @@ In the world of microservice, there is sometimes a requirement that a service (c
 * Go to directory: spring-boot-client-oauth2
 * Run command: "mvn spring-boot:run -Dhttps.protocols=TLSv1.2,TLSv1.1,TLSv1"
 
+NB: We have to run with -Dhttps.protocols=TLSv1.2,TLSv1.1,TLSv1 in order to enable HTTPS while using RestTemplate to send request to https://{your_account_id}.oktapreview.com
+
 ## Expected result:
 * If you visit: http://localhost:8080/user, you'll get 401 http status as response.
 * The log of spring-boot-client-oauth2 will contain:
