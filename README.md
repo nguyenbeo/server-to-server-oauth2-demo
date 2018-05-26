@@ -24,3 +24,18 @@ In the world of microservice, there is sometimes a requirement that a service (c
 * Spring Security OAuth
 
 # How to run
+* Register an account on https://developer.okta.com/. Don't forget to activate from your email. You'll get a client_id and client_secret, save them all to configure your Spring-Boot servers.
+* Create Application with Service - Machine to machine while creating the application.
+* Create scope = "get_user" for the API of Authentication Server.
+* Edit the yaml files in spring-boot-client-oauth2/src/main/resources/application.yml and spring-boot-resource-server-oauth2/src/main/resources/application.yml with the client_id, client_secret and access_token_ui with the ones that you recently registered. Take to URL in issuer in Okta.spring-boot-resource-server-oauth2
+* Open the terminal
+* Run command: "cd spring-boot-resource-server-oauth2"
+* Run command: "mvn spring-boot:run -Dhttps.protocols=TLSv1.2,TLSv1.1,TLSv1" to start up the resource server.
+* Open another tab in the terminal
+* Go to directory: spring-boot-client-oauth2
+* Run command: "mvn spring-boot:run -Dhttps.protocols=TLSv1.2,TLSv1.1,TLSv1"
+
+## Expected result:
+* If you visit: http://localhost:8080/user, you'll get 401 http status as response.
+* The log of spring-boot-client-oauth2 will contain:
+"2018-05-26 21:02:01.227  INFO 5163 --- [main] .m.o.s.SpringBootClientOauth2Application : Authorized User: User [name=Nguyen Binh Nguyen, position=Co-Founder, company=MiKKa Consuting, url=http://mikka.se, bio=A senior software engineer]"

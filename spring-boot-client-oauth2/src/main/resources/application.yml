@@ -5,5 +5,5 @@ example:
       grantType: client_credentials
       clientId: 0oaf70lltoKb33jYf0h7
       clientSecret: Pb5Nknar4udZewSJvJj0vmaA50wKuO6v6UflzdYp
-      accessTokenUri: http://dev-828234.oktapreview.com/oauth2/default/v1/token
+      accessTokenUri: https://dev-828234.oktapreview.com/oauth2/default/v1/token
       scope: get_user

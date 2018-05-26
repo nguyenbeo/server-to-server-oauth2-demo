@@ -13,14 +13,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
-import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeAccessTokenProvider;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class SpringBootClientOauth2Application implements CommandLineRunner {
 	
-	private final Logger logger = LoggerFactory.getLogger(SpringBootClientOauth2Application.class);
+	private final Logger LOGGER = LoggerFactory.getLogger(SpringBootClientOauth2Application.class);
 
     @Value("#{ @environment['example.baseUrl'] }")
     private String serverBaseUrl;
@@ -39,25 +38,12 @@ public class SpringBootClientOauth2Application implements CommandLineRunner {
     protected RestTemplate restTemplate() throws KeyManagementException, NoSuchAlgorithmException {
 		OAuth2RestTemplate oauthRestTemplate = new OAuth2RestTemplate(oAuthDetails());
         
-		turnOffSslChecking(oauthRestTemplate);
-        
         return oauthRestTemplate;
     }
 	
 	@Override
     public void run(String... args) throws RestClientException, KeyManagementException, NoSuchAlgorithmException {
-        logger.info("MOD: {}", restTemplate().getForObject(serverBaseUrl + "/user", User.class));
-    }
-	
-    public static void turnOffSslChecking(OAuth2RestTemplate oAuth2RestTemplate) throws KeyManagementException, NoSuchAlgorithmException {
-        //This is for OAuth protected resources
-        SSLContextRequestFactory requestFactory = new SSLContextRequestFactory();
-        oAuth2RestTemplate.setRequestFactory(requestFactory);
-
-        //AuthorizationCodeAccessTokenProvider creates it's own RestTemplate for token operations
-        AuthorizationCodeAccessTokenProvider provider = new AuthorizationCodeAccessTokenProvider();
-        provider.setRequestFactory(requestFactory);
-        oAuth2RestTemplate.setAccessTokenProvider(provider);
+		LOGGER.info("Authorized User: {}", restTemplate().getForObject(serverBaseUrl + "/user", User.class));
     }
 	
 }
